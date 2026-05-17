@@ -26,6 +26,26 @@ I added a print statement immediately after `spawner.spawn(...)`. The new line a
 
 ![Experiment 1.2 output](assets/screenshots/experiment-1-2.png)
 
+## Experiment 1.3: Multiple Spawn and Removing Drop
+
+In this experiment, I spawned three timer tasks with durations of one, two, and three seconds. The spawn messages appear first because those prints are outside the async blocks and run immediately while tasks are being queued. When the executor starts, it polls every queued task once, so all `howdy` messages appear before any timer finishes. The completion messages appear in timer-duration order, which demonstrates that each future can be woken independently and returned to the executor queue. The `Spawner` owns the sending side of the channel and is responsible for putting new tasks into the executor queue. The `Executor` owns the receiving side, waits for ready tasks, and polls each task until it finishes or becomes pending again. The `Task` stores the future and knows how to requeue itself through its waker. Calling `drop(spawner)` closes the last external sender after all intended tasks have been spawned, so `executor.run()` can exit when the queue is empty. Without `drop(spawner)`, the receiving side still sees a live sender, so the executor keeps waiting for more tasks even after all current tasks are done.
+
+Run with `drop(spawner)`:
+
+```bash
+cargo run --quiet
+```
+
+![Experiment 1.3 with drop](assets/screenshots/experiment-1-3-with-drop.png)
+
+Run without dropping the spawner:
+
+```bash
+cargo run --quiet -- --skip-drop
+```
+
+![Experiment 1.3 without drop](assets/screenshots/experiment-1-3-without-drop.png)
+
 ## Commit and Pull Request Links
 
 The final commit and pull request links will be collected after all experiment pull requests are merged.

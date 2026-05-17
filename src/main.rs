@@ -3,6 +3,7 @@ use futures::{
     task::{waker_ref, ArcWake},
 };
 use std::{
+    env,
     future::Future,
     sync::mpsc::{sync_channel, Receiver, SyncSender},
     sync::{Arc, Mutex},
@@ -116,14 +117,22 @@ impl Executor {
 
 fn main() {
     let (executor, spawner) = new_executor_and_spawner();
+    let skip_drop = env::args().any(|arg| arg == "--skip-drop");
 
-    spawner.spawn(async {
-        println!("Haekal Alexander Dinova's Computer: howdy!");
-        TimerFuture::new(Duration::new(2, 0)).await;
-        println!("Haekal Alexander Dinova's Computer: done!");
-    });
-    println!("Haekal Alexander Dinova's Computer: spawned a timer task.");
+    for (task_id, seconds) in [(1, 2), (2, 1), (3, 3)] {
+        spawner.spawn(async move {
+            println!("Haekal Alexander Dinova's Computer: task {task_id} says howdy!");
+            TimerFuture::new(Duration::new(seconds, 0)).await;
+            println!("Haekal Alexander Dinova's Computer: task {task_id} is done!");
+        });
+        println!("Haekal Alexander Dinova's Computer: spawned timer task {task_id}.");
+    }
 
-    drop(spawner);
+    if skip_drop {
+        println!("Haekal Alexander Dinova's Computer: drop(spawner) skipped.");
+    } else {
+        println!("Haekal Alexander Dinova's Computer: dropping spawner.");
+        drop(spawner);
+    }
     executor.run();
 }
