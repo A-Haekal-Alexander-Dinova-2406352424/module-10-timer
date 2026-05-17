@@ -122,6 +122,7 @@ fn main() {
         TimerFuture::new(Duration::new(2, 0)).await;
         println!("Haekal Alexander Dinova's Computer: done!");
     });
+    println!("Haekal Alexander Dinova's Computer: spawned a timer task.");
 
     drop(spawner);
     executor.run();
