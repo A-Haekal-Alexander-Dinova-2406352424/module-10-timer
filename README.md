@@ -48,4 +48,14 @@ cargo run --quiet -- --skip-drop
 
 ## Commit and Pull Request Links
 
-The final commit and pull request links will be collected after all experiment pull requests are merged.
+### Commits
+
+- [Experiment 1.1: Original timer from the book](https://github.com/A-Haekal-Alexander-Dinova-2406352424/module-10-timer/commit/fcc498bb264c0b0e81709978ad117c50ad534aae)
+- [Experiment 1.2: Understanding how it works.](https://github.com/A-Haekal-Alexander-Dinova-2406352424/module-10-timer/commit/30cd7e21da8b0373c518be2c7246c1c0d7a4a0d9)
+- [Experiment 1.3: Multiple Spawn and removing drop](https://github.com/A-Haekal-Alexander-Dinova-2406352424/module-10-timer/commit/66507251a460ad9160905c77f1b19ef7406b1807)
+
+### Pull Requests
+
+- [PR #1: Experiment 1.1: Original timer from the book](https://github.com/A-Haekal-Alexander-Dinova-2406352424/module-10-timer/pull/1)
+- [PR #2: Experiment 1.2: Understanding how it works.](https://github.com/A-Haekal-Alexander-Dinova-2406352424/module-10-timer/pull/2)
+- [PR #3: Experiment 1.3: Multiple Spawn and removing drop](https://github.com/A-Haekal-Alexander-Dinova-2406352424/module-10-timer/pull/3)
