@@ -20,6 +20,12 @@ In this experiment, I implemented the original timer and executor code from the 
 
 ![Experiment 1.1 output](assets/screenshots/experiment-1-1.png)
 
+## Experiment 1.2: Understanding How It Works
+
+I added a print statement immediately after `spawner.spawn(...)`. The new line appears before `howdy!` because `spawn` only places the future into the executor queue. The async block itself is still lazy and has not been polled at that moment. After `drop(spawner)`, the program calls `executor.run()`, and only then does the executor start receiving queued tasks and polling the future. The first poll runs the async block until it reaches `TimerFuture::await`, so `howdy!` appears after the outside print. The future returns `Pending`, the timer thread later wakes the task, and the executor polls it again until `done!` is printed.
+
+![Experiment 1.2 output](assets/screenshots/experiment-1-2.png)
+
 ## Commit and Pull Request Links
 
 The final commit and pull request links will be collected after all experiment pull requests are merged.
